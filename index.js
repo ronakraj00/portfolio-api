@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const sites = require("./data.json");
 
 const app = express();
 const PORT = 3000;
 
+app.use(express.static('./public'));
+
 app.get("/", (req, res) => {
-    res.send("hi");
+    res.json(sites);
 });
 
 const mongoDB =
