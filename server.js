@@ -2,6 +2,8 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+require("dotenv").config();
+
 
 const app = express();
 const PORT = 3001;
@@ -45,6 +47,16 @@ app.get("/api/hall-of-fame/:game", (req, res) => {
   }
   res.json(scores.slice(0, 3));
 });
+
+// GET /api/github-token — Sends only the GitHub token
+app.get("/api/github-token", (req, res) => {
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+  if (!GITHUB_TOKEN) {
+    return res.status(500).json({ error: "Token not set" });
+  }
+  res.json({ token: GITHUB_TOKEN }); // Only sends the token
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
