@@ -57,6 +57,14 @@ app.get("/api/github-token", (req, res) => {
   res.json({ token: GITHUB_TOKEN }); // Only sends the token
 });
 
+app.get("/api/couterapi-token", (req, res) => {
+  const COUNTER_API_KEY = process.env.COUNTER_API_KEY;
+  if (!COUNTER_API_KEY) {
+    return res.status(500).json({ error: "Token not set" });
+  }
+  res.json({ token: COUNTER_API_KEY }); // Only sends the token
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
